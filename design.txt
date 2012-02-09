@@ -4,3 +4,9 @@ How do we input the data from the user?
 
 I have created few text files in input_data folder. User will update these files. Let's first decide on how are we storing these values in our codebase and implement functions to get these values from files and store in in a local data structure.
 
+Function prototypes:
+bool getTeachers(char ** teachers, char * errMsg);
+bool getStandards(char ** standards, char * errMsg);
+bool getSubjects(char ** subjects, char * errMsg);
+bool getDays(char ** days, char * errMsg);
+bool getPeriods(int * periods, char * errMsg);
