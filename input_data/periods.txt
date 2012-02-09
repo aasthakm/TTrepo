@@ -1,0 +1,13 @@
+# Enter number of periods per day
+# The time table will have given number of periods for each day
+
+9
+
+
+
+# If any particular day has additional periods or less periods 
+# add that along with the day name below
+# values entered below will overwrite the value entered above for the particular day
+# Use following day names only - "mon", "tue", "wed", "thu", "fri", "sat", "sun"
+
+sat 5

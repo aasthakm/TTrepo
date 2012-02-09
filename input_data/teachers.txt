@@ -1,0 +1,6 @@
+# Enter list of teacher names in this file
+# Names should consist of one word only (maximum 100 characters)
+# Use only space or newline character to separate the names
+# Don't use any delimiters like ',', '|', ';' etc.
+
+priya parul jyoti jagdish amit anil divya
