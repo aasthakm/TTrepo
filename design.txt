@@ -1,1 +1,6 @@
-Trial 1
+Part 1:
+
+How do we input the data from the user?
+
+I have created few text files in input_data folder. User will update these files. Let's first decide on how are we storing these values in our codebase and implement functions to get these values from files and store in in a local data structure.
+
