@@ -5,7 +5,7 @@ int main()
 {
     printf("Hello world!\n");
 
-// TODO (@aastha) - try to implement these points
+// TODO (@aastha) - try to implement these points if ur free
 
 // Get user input from the *.txt files
 // Just need to make respective calls here
