@@ -15,9 +15,9 @@ int init_time_table(int num_teachers, int num_days, int num_periods){
     for (i = 0; i < num_teachers; i++) {
         time_table[i] = (lecture_t**)malloc(sizeof(lecture_t*) * num_days);
         if(time_table[i] == NULL) {
-            delete_time_table_per_teacher(time_table, i);
             printf("Error in init_time_table(...),"
                    " insufficient memory for tt[teacher=%d]\n", i);
+            delete_time_table_per_teacher(time_table, i);
             return 0;
         }
     }
@@ -26,9 +26,9 @@ int init_time_table(int num_teachers, int num_days, int num_periods){
         for(j = 0; j < num_days; j++) {
             time_table[i][j] = (lecture_t*)malloc(sizeof(lecture_t) * num_periods);
             if (time_table[i][j] == NULL) {
-                delete_day_time_table_per_teacher(time_table, num_teachers, j);
                 printf("Error in init_time_table(...),"
                        " insufficient memory for tt[teacher=%d][day=%d]\n", i, j);
+                delete_day_time_table_per_teacher(time_table, num_teachers, j);
                 return 0;
             }
         }
