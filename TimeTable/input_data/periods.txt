@@ -1,4 +1,1 @@
-# Enter number of periods per day
-# The time table will have given number of periods for each day
-
 9

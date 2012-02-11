@@ -19,3 +19,25 @@
 
 1328974789 d:\github sync\ttrepo\timetable\time_table.h
 
+1328984522 source:c:\users\aastha\ttrepo\timetable\file_parser.c
+	"file_parser.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1328984522 c:\users\aastha\ttrepo\timetable\file_parser.h
+
+1328988232 source:c:\users\aastha\ttrepo\timetable\main.c
+	<stdio.h>
+	<stdlib.h>
+	"file_parser.h"
+	"time_table.h"
+
+1328987874 source:c:\users\aastha\ttrepo\timetable\time_table.c
+	"time_table.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1328987901 c:\users\aastha\ttrepo\timetable\time_table.h
+
