@@ -1,0 +1,6 @@
+# Enter list of days in this file
+# Use following day names only - "mon", "tue", "wed", "thu", "fri", "sat", "sun"
+# Use only space or newline character to separate the names
+# Don't use any delimiters like ',', '|', ';' etc.
+
+mon tue wed thu fri sat

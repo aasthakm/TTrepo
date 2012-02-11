@@ -1,0 +1,9 @@
+# Enter list of teacher names along with their subject-standard requirements in this file
+# Teacher should be first entered in teachers.txt
+# Standards should be first entered in standards.txt
+# Subjects should be first entered in subjects.txt
+# Use following pattern:
+# <teacher> <standard> <subject> <standard> <subject> ...
+
+priya 1a math 1b math 1c math 1d math 2a math 2b math 2c math 2d math 2e math 3a math 3b math 3c math 4a math 4b math 5a math 5b math 5c math 5d math 5e math 
+parul 1a science 1b science 1c science 1d science 2a science 2b science 2c science 2d science 2e science 3a science 3b science 3c science 4a science 4b science 5a science 5b science 5c science 5d science 5e science 

@@ -1,0 +1,8 @@
+19
+1a 1b 1c 1d 2a 2b 2c 2d 2e 3a 3b 3c 4a 4b 5a 5b 5c 5d 5e
+
+# Enter list of classes in this file
+# Class name should consist of one word only (maximum 10 characters)
+# Use only space or newline character to separate the names
+# Don't use any delimiters like ',', '|', ';' etc.
+
