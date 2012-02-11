@@ -10,3 +10,17 @@ bool getStandards(char ** standards, char * errMsg);
 bool getSubjects(char ** subjects, char * errMsg);
 bool getDays(char ** days, char * errMsg);
 bool getPeriods(int * periods, char * errMsg);
+
+
+# Enter list of teacher names along with their subject-standard requirements in this file
+# Teacher should be first entered in teachers.txt
+# Standards should be first entered in standards.txt
+# Subjects should be first entered in subjects.txt
+# Use following pattern:
+# <teacher> <standard> <subject> <standard> <subject> ...
+
+# Enter list of days in this file
+# Use following day names only - "mon", "tue", "wed", "thu", "fri", "sat", "sun"
+# Use only space or newline character to separate the names
+# Don't use any delimiters like ',', '|', ';' etc.
+

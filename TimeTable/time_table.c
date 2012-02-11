@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+lecture_t ***time_table = NULL;
+
 int init_time_table(int num_teachers, int num_days, int num_periods){
     int i = 0, j = 0, k = 0;
 
@@ -37,8 +39,8 @@ int init_time_table(int num_teachers, int num_days, int num_periods){
     for(i = 0; i < num_teachers; i++) {
         for(j = 0; j < num_days; j++) {
             for(k = 0; k < num_periods; k++) {
-                strcpy(time_table[i][j][k].sub, "\0");
                 strcpy(time_table[i][j][k].std, "\0");
+                strcpy(time_table[i][j][k].sub, "\0");
             }
         }
     }
@@ -99,7 +101,7 @@ void delete_time_table(lecture_t*** time_table, int num_teachers,
     }
 }
 
-int allocate(int teacher, int day, int period) {
+void allocate(int teacher, int day, int period) {
     /*
     // Here I do not know how to define lastTeacher, etc.
     // They need to be global variables, defined when file input is read
