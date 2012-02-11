@@ -98,3 +98,23 @@ void delete_time_table(lecture_t*** time_table, int num_teachers,
         free(time_table);
     }
 }
+
+int allocate(int teacher, int day, int period) {
+    /*
+    // Here I do not know how to define lastTeacher, etc.
+    // They need to be global variables, defined when file input is read
+    // Can we use static for this
+    // I FORGOT C :|
+    if(teacher > lastTeacher) {
+        teacher = firstTeacher;
+        period++;
+    }
+    if(period > lastPeriod) {
+        period = firstPeriod;
+        day++:
+    }
+    if(day > lastDay)
+        return true;
+    */
+    //continue...
+}
