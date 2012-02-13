@@ -8,7 +8,7 @@ lecture_t ***time_table = NULL;
 int init_time_table(int num_teachers, int num_days, int num_periods){
     int i = 0, j = 0, k = 0;
 
-    lecture_t*** time_table = (lecture_t***)malloc(sizeof(lecture_t**) * num_teachers);
+    time_table = (lecture_t***)malloc(sizeof(lecture_t**) * num_teachers);
     if(time_table == NULL) {
         printf("Error in init_time_table(...), insufficient memory for tt\n");
         return 0;
@@ -119,4 +119,5 @@ int allocate(int teacher, int day, int period) {
         return true;
     */
     //continue...
+    return 1;
 }

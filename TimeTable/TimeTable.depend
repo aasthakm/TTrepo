@@ -41,3 +41,26 @@
 
 1328987901 c:\users\aastha\ttrepo\timetable\time_table.h
 
+1329074307 source:c:\users\aastha\tt2\timetable\main.c
+	<stdio.h>
+	<stdlib.h>
+	"file_parser.h"
+	"time_table.h"
+
+1329078555 c:\users\aastha\tt2\timetable\file_parser.h
+	"time_table.h"
+
+1329077511 c:\users\aastha\tt2\timetable\time_table.h
+
+1329074087 source:c:\users\aastha\tt2\timetable\time_table.c
+	"time_table.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1329074323 source:c:\users\aastha\tt2\timetable\file_parser.c
+	"file_parser.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

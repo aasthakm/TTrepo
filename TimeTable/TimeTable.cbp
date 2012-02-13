@@ -38,6 +38,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="time_table.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="time_table.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

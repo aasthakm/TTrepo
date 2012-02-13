@@ -1,2 +1,7 @@
 6
-mon tue wed thu fri sat
+mon
+tue
+wed
+thu
+fri
+sat

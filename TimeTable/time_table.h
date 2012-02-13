@@ -6,9 +6,14 @@ typedef char standard_t;
 typedef char teacher_t;
 
 typedef struct lecture_s {
-    char std[5];
-    char sub[100];
+    standard_t std[5];
+    subject_t sub[100];
 } lecture_t;
+
+typedef struct teacher_lec_s {
+    char *teacher;
+    lecture_t lectures[30];
+} teacher_lec_t;
 
 extern lecture_t ***time_table;
 
