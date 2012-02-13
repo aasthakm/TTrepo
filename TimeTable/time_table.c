@@ -101,7 +101,7 @@ void delete_time_table(lecture_t*** time_table, int num_teachers,
     }
 }
 
-void allocate(int teacher, int day, int period) {
+int allocate(int teacher, int day, int period) {
     /*
     // Here I do not know how to define lastTeacher, etc.
     // They need to be global variables, defined when file input is read

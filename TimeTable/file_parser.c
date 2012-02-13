@@ -29,8 +29,11 @@ int parse_file(char* file_name, char*** array, int* size){
 
 	if(EOF == fscanf(fp, "%d", size)) {
         printf("Error in parseFile(...), empty file %s\n", file_name);
+        fclose(fp);
     	return 0;
 	}
+	printf("Error in parse_file(...), size %d is not equal to value %d from %s\n",
+                temp_size, *size, file_name);
     *array = (char **)malloc((*size) * sizeof(char *));
 
 	if (*array == NULL) {
@@ -39,8 +42,11 @@ int parse_file(char* file_name, char*** array, int* size){
 		return 0;
 	}
 
+    printf("Error in parse_file(...), size %d is not equal to value %d from %s\n",
+                temp_size, *size, file_name);
 	while (EOF != fscanf(fp, "%s", temp_word_buffer)) {
 	    temp_word_buffer_length = strlen(temp_word_buffer);
+	    printf("temp_word_buffer_length = %d\n", temp_word_buffer_length);
 		char *word = (char *)malloc(temp_word_buffer_length * sizeof(char));
 		if (word == NULL) {
 			printf("Error in parse_file(...), insufficient memory for word\n");
@@ -50,6 +56,8 @@ int parse_file(char* file_name, char*** array, int* size){
 		}
 		strcpy(word, temp_word_buffer);
 		(*array)[temp_size++] = word;
+		printf("Error in parse_file(...), size %d is not equal to value %d from %s\n",
+                temp_size, *size, file_name);
 	}
 
 	if (*size != temp_size) {
