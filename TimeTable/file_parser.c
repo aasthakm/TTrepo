@@ -174,8 +174,8 @@ void delete_tl_array(teacher_lec_t **tl_array, int size) {
             if (tla[i].teacher) {
                 free((void *)tla[i].teacher);
             }
-            tla[i].lectures.std = "\0";
-            tla[i].lectures.sub = "\0";
+            strcpy(tla[i].lectures[0].std, "\0");
+            tla[i].lectures[0].sub = "\0";
             free((void *)tl_array[i]);
         }
     }
