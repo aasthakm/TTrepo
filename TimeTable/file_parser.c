@@ -27,12 +27,9 @@ int parse_file(char* file_name, char*** array, int* size){
 	}
 
 	if(EOF == fscanf(fp, "%d", size)) {
-        printf("Error in parseFile(...), empty file %s\n", file_name);
-        fclose(fp);
+        printf("Error in parse_file(...), empty file %s\n", file_name);
     	return 0;
 	}
-	printf("Error in parse_file(...), size %d is not equal to value %d from %s\n",
-                temp_size, *size, file_name);
     *array = (char **)malloc((*size) * sizeof(char *));
 
 	if (*array == NULL) {
@@ -41,11 +38,8 @@ int parse_file(char* file_name, char*** array, int* size){
 		return 0;
 	}
 
-    printf("Error in parse_file(...), size %d is not equal to value %d from %s\n",
-                temp_size, *size, file_name);
 	while (EOF != fscanf(fp, "%s", temp_word_buffer)) {
 	    temp_word_buffer_length = strlen(temp_word_buffer);
-	    printf("temp_word_buffer_length = %d\n", temp_word_buffer_length);
 		char *word = (char *)malloc(temp_word_buffer_length * sizeof(char));
 		if (word == NULL) {
 			printf("Error in parse_file(...), insufficient memory for word\n");
@@ -55,8 +49,6 @@ int parse_file(char* file_name, char*** array, int* size){
 		}
 		strcpy(word, temp_word_buffer);
 		(*array)[temp_size++] = word;
-		printf("Error in parse_file(...), size %d is not equal to value %d from %s\n",
-                temp_size, *size, file_name);
 	}
 
 	if (*size != temp_size) {
@@ -97,6 +89,7 @@ int parse_lec_file(char *file_name, teacher_lec_t **tl_array,
     int i, j;
     char temp_word_buffer[100];
     int temp_num_lec, temp_word_buffer_length;
+    teacher_lec_t *tla;
 
     if (file_name == NULL) {
 		printf("Error in parse_lec_file(...), fileName NULL\n");
@@ -121,26 +114,30 @@ int parse_lec_file(char *file_name, teacher_lec_t **tl_array,
         fclose(fp);
         return 0;
 	}
+    tla = *tl_array;
 
 	for (i = 0; i < *num_teach_lec; i++) {
         if (EOF == fscanf(fp, "%s %d", temp_word_buffer, &temp_num_lec)) {
             printf("Error in parse_lec_file(...), iteration %d", i);
+            delete_tl_array(tl_array, i);
             fclose(fp);
             return 0;
         }
         temp_word_buffer_length = strlen(temp_word_buffer);
         // TODO: add assert (temp_word_buffer_length != 0)
-        *tl_array[i].teacher = (char*)malloc(temp_word_buffer_length * sizeof(char));
-        if (!*tl_array[i].teacher) {
+        tla[i].teacher = (char*)malloc(temp_word_buffer_length * sizeof(char));
+        if (!tla[i].teacher) {
             printf("Error in parse_lec_file(...), insufficient memory for tl_array.teacher\n");
+            delete_tl_array(tl_array, i+1);
             fclose(fp);
             return 0;
         }
-        strcpy(*tl_array[i].teacher, temp_word_buffer);
+        strcpy(tla[i].teacher, temp_word_buffer);
         for (j = 0; j < temp_num_lec; j++) {
-            if (EOF == fscanf(fp, "%s %s", *tl_array[i].lectures[j].std,
-                              *tl_array[i].lectures[j].sub)) {
+            if (EOF == fscanf(fp, "%s %s", tla[i].lectures[j].std,
+                              tla[i].lectures[j].sub)) {
                 printf("Error...\n");
+                delete_tl_array(tl_array, i+1);
                 fclose(fp);
                 return 0;
             }
@@ -167,4 +164,19 @@ void print_char_array(char** array, int size) {
         printf("%s\n", array[i]);
     }
     printf("Total elements = %d\t size = %d\n", i, size);
+}
+
+void delete_tl_array(teacher_lec_t **tl_array, int size) {
+    int i;
+    teacher_lec_t *tla = *tl_array;
+    for (i = 0; i < size; i++) {
+        if (tl_array[i]) {
+            if (tla[i].teacher) {
+                free((void *)tla[i].teacher);
+            }
+            tla[i].lectures.std = "\0";
+            tla[i].lectures.sub = "\0";
+            free((void *)tl_array[i]);
+        }
+    }
 }
