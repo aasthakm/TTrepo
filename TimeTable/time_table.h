@@ -7,7 +7,7 @@ typedef char teacher_t;
 
 typedef struct lecture_s {
     standard_t std[5];
-    subject_t sub[100];
+    char * sub;
 } lecture_t;
 
 typedef struct teacher_lec_s {
