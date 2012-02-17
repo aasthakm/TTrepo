@@ -1,23 +1,26 @@
 # depslib dependency file v1.0
-1328961105 source:d:\github sync\ttrepo\timetable\main.c
+1329330461 source:d:\github sync\ttrepo\timetable\main.c
 	<stdio.h>
 	<stdlib.h>
+	"file_parser.h"
+	"time_table.h"
 
-1328962767 source:d:\github sync\ttrepo\timetable\file_parser.c
+1329337993 source:d:\github sync\ttrepo\timetable\file_parser.c
 	"file_parser.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1328949202 d:\github sync\ttrepo\timetable\file_parser.h
+1329337027 d:\github sync\ttrepo\timetable\file_parser.h
+	"time_table.h"
 
-1328963140 source:d:\github sync\ttrepo\timetable\time_table.c
+1329147745 source:d:\github sync\ttrepo\timetable\time_table.c
 	"time_table.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1328974789 d:\github sync\ttrepo\timetable\time_table.h
+1329337027 d:\github sync\ttrepo\timetable\time_table.h
 
 1328984522 source:c:\users\aastha\ttrepo\timetable\file_parser.c
 	"file_parser.h"

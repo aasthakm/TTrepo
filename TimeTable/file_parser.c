@@ -107,37 +107,49 @@ int parse_lec_file(char *file_name, teacher_lec_t **tl_array,
         fclose(fp);
     	return 0;
 	}
+	printf("num_teach_lecs = %d\n", *num_teach_lec);
 
 	*tl_array = (teacher_lec_t*)malloc(sizeof(teacher_lec_t) * (*num_teach_lec));
+	tla = *tl_array;
 	if (!*tl_array) {
         printf("Error in parse_lec_file(...), insufficient memory for tl_array\n");
         fclose(fp);
         return 0;
 	}
-    tla = *tl_array;
 
 	for (i = 0; i < *num_teach_lec; i++) {
         if (EOF == fscanf(fp, "%s %d", temp_word_buffer, &temp_num_lec)) {
             printf("Error in parse_lec_file(...), iteration %d", i);
-            delete_tl_array(tl_array, i);
+            delete_tl_array(tl_array, i, MAX_LECS_PER_TEACHER);
             fclose(fp);
             return 0;
         }
         temp_word_buffer_length = strlen(temp_word_buffer);
+        printf("twb_len = %d, twb = %s\t", temp_word_buffer_length, temp_word_buffer);
+        printf("temp_num_lec = %d\n", temp_num_lec);
         // TODO: add assert (temp_word_buffer_length != 0)
+        printf("\n length = %d, i = %d", temp_word_buffer_length, i);
+        if(tla == NULL)
+            printf("\ntla == NULL");
+        if((tla + i) == NULL)
+            printf("\ntla = i == NULL");
+        if(tla[i].teacher == NULL)
+            printf("\ntla[i].teacher == NULL");
         tla[i].teacher = (char*)malloc(temp_word_buffer_length * sizeof(char));
+        printf("\nhere\n");
         if (!tla[i].teacher) {
             printf("Error in parse_lec_file(...), insufficient memory for tl_array.teacher\n");
-            delete_tl_array(tl_array, i+1);
+            delete_tl_array(tl_array, i+1, MAX_LECS_PER_TEACHER);
             fclose(fp);
             return 0;
         }
         strcpy(tla[i].teacher, temp_word_buffer);
+        printf("t[%d] = %s\n", i, tla[i].teacher);
         for (j = 0; j < temp_num_lec; j++) {
             if (EOF == fscanf(fp, "%s %s", tla[i].lectures[j].std,
                               tla[i].lectures[j].sub)) {
                 printf("Error...\n");
-                delete_tl_array(tl_array, i+1);
+                delete_tl_array(tl_array, i+1, MAX_LECS_PER_TEACHER);
                 fclose(fp);
                 return 0;
             }
@@ -166,16 +178,22 @@ void print_char_array(char** array, int size) {
     printf("Total elements = %d\t size = %d\n", i, size);
 }
 
-void delete_tl_array(teacher_lec_t **tl_array, int size) {
-    int i;
+void delete_tl_array(teacher_lec_t **tl_array, int t_size, int l_size) {
+    int i, j;
     teacher_lec_t *tla = *tl_array;
-    for (i = 0; i < size; i++) {
+    for (i = 0; i < t_size; i++) {
         if (tl_array[i]) {
             if (tla[i].teacher) {
                 free((void *)tla[i].teacher);
             }
-            strcpy(tla[i].lectures[0].std, "\0");
-            tla[i].lectures[0].sub = "\0";
+            for (j = 0; j < l_size; j++) {
+                if (tla[i].lectures[j].std) {
+                    strcpy(tla[i].lectures[j].std, "\0");
+                }
+                if (tla[i].lectures[j].sub) {
+                    strcpy(tla[i].lectures[j].sub, "\0");
+                }
+            }
             free((void *)tl_array[i]);
         }
     }

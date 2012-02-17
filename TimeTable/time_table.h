@@ -1,6 +1,7 @@
 #ifndef TIME_TABLE_H
 #define TIME_TABLE_H
 
+#define MAX_LECS_PER_TEACHER 30
 typedef char subject_t;
 typedef char standard_t;
 typedef char teacher_t;
@@ -12,7 +13,7 @@ typedef struct lecture_s {
 
 typedef struct teacher_lec_s {
     char *teacher;
-    lecture_t lectures[30];
+    lecture_t lectures[MAX_LECS_PER_TEACHER];
 } teacher_lec_t;
 
 extern lecture_t ***time_table;
