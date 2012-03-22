@@ -107,7 +107,6 @@ int parse_lec_file(char *file_name, teacher_lec_t **tl_array,
         fclose(fp);
     	return 0;
 	}
-	printf("num_teach_lecs = %d\n", *num_teach_lec);
 
 	*tl_array = (teacher_lec_t*)malloc(sizeof(teacher_lec_t) * (*num_teach_lec));
 	tla = *tl_array;
@@ -125,18 +124,8 @@ int parse_lec_file(char *file_name, teacher_lec_t **tl_array,
             return 0;
         }
         temp_word_buffer_length = strlen(temp_word_buffer);
-        printf("twb_len = %d, twb = %s\t", temp_word_buffer_length, temp_word_buffer);
-        printf("temp_num_lec = %d\n", temp_num_lec);
         // TODO: add assert (temp_word_buffer_length != 0)
-        printf("\n length = %d, i = %d", temp_word_buffer_length, i);
-        if(tla == NULL)
-            printf("\ntla == NULL");
-        if((tla + i) == NULL)
-            printf("\ntla = i == NULL");
-        if(tla[i].teacher == NULL)
-            printf("\ntla[i].teacher == NULL");
         tla[i].teacher = (char*)malloc(temp_word_buffer_length * sizeof(char));
-        printf("\nhere\n");
         if (!tla[i].teacher) {
             printf("Error in parse_lec_file(...), insufficient memory for tl_array.teacher\n");
             delete_tl_array(tl_array, i+1, MAX_LECS_PER_TEACHER);
@@ -144,7 +133,6 @@ int parse_lec_file(char *file_name, teacher_lec_t **tl_array,
             return 0;
         }
         strcpy(tla[i].teacher, temp_word_buffer);
-        printf("t[%d] = %s\n", i, tla[i].teacher);
         for (j = 0; j < temp_num_lec; j++) {
             if (EOF == fscanf(fp, "%s %s", tla[i].lectures[j].std,
                               tla[i].lectures[j].sub)) {
@@ -155,7 +143,12 @@ int parse_lec_file(char *file_name, teacher_lec_t **tl_array,
             }
         }
         // TODO: assert (j == temp_num_lec)
-
+        if (j == temp_num_lec) {
+            tla[i].num_lectures = temp_num_lec;
+        } else {
+            printf("Error...\n");
+            delete_tl_array(tl_array, i+1, MAX_LECS_PER_TEACHER);
+        }
 	}
 	// TODO: assert (i == num_teach_lec)
 	fclose(fp);
@@ -175,7 +168,19 @@ void print_char_array(char** array, int size) {
     for (i = 0; i < size; i++) {
         printf("%s\n", array[i]);
     }
-    printf("Total elements = %d\t size = %d\n", i, size);
+}
+
+void print_tl_array(teacher_lec_t* tl_array, int tl_array_size)
+{
+    int i, j;
+    for(i = 0; i < tl_array_size; i++) {
+        printf("%s >> ", tl_array[i].teacher);
+        for(j = 0; j < tl_array[i].num_lectures; j++)
+        {
+            printf("%s %s, ", tl_array[i].lectures[j].std, tl_array[i].lectures[j].sub);
+        }
+        printf("\n");
+    }
 }
 
 void delete_tl_array(teacher_lec_t **tl_array, int t_size, int l_size) {

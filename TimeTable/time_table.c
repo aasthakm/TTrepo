@@ -3,6 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+extern int counter1;
+extern int num_teachers;
+extern int num_sub;
+extern int num_days;
+extern int num_std;
+extern int num_periods;
+extern int num_teach_lecs;
+
 lecture_t ***time_table = NULL;
 
 int init_time_table(int num_teachers, int num_days, int num_periods){
@@ -101,23 +109,70 @@ void delete_time_table(lecture_t*** time_table, int num_teachers,
     }
 }
 
-int allocate(int teacher, int day, int period) {
+void print_time_table() {
+    int i, j, k;
+
+    printf("\n\nPrinting timetable, %d days, %d periods and %d teachers\n",
+            num_days, num_periods, num_teachers);
+
+    printf("\nTid\t");
+    for(j = 0; j < num_days; j++) {
+        for(k = 0; k < num_periods; k++) {
+            printf("D%dP%d\t", j, k);
+        }
+    }
+
+    for(i = 0; i < num_teachers; i++) {
+        printf("\nT%d\t", i);
+        for(j = 0; j < num_days; j++) {
+            for(k = 0; k < num_periods; k++) {
+                printf("%s%s\t", time_table[i][j][k].std, time_table[i][j][k].sub);
+            }
+        }
+    }
+}
+
+int allocate(teacher_lec_t* tl_array, int teacher, int day, int period) {
     /*
     // Here I do not know how to define lastTeacher, etc.
     // They need to be global variables, defined when file input is read
     // Can we use static for this
     // I FORGOT C :|
-    if(teacher > lastTeacher) {
-        teacher = firstTeacher;
-        period++;
-    }
-    if(period > lastPeriod) {
-        period = firstPeriod;
-        day++:
-    }
-    if(day > lastDay)
-        return true;
+
     */
     //continue...
+
+    //print_time_table
+    int i, j, k;
+
+    //scanf("%c",&tempchar);
+    //printf(", %c", tempchar);
+
+    if(teacher >= num_teachers) {
+        teacher = 0;
+        period++;
+    }
+
+    if(period >= num_periods) {
+        period = 0;
+        day++;
+    }
+
+    if(day >= num_days) {
+        counter1++;
+        print_time_table();
+        return 1;
+    }
+
+    //printf("\n%d, %d, %d", teacher, period, day);
+    //allocate(tl_array, teacher + 1, day, period);
+
+    for(i = 0; i < tl_array[teacher].num_lectures; i++) {
+        strcpy(time_table[teacher][day][period].std, tl_array[teacher].lectures[i].std);
+        strcpy(time_table[teacher][day][period].sub, tl_array[teacher].lectures[i].sub);
+        allocate(tl_array, teacher + 1, day, period);
+    }
+
+
     return 1;
 }

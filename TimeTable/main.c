@@ -3,17 +3,16 @@
 #include "file_parser.h"
 #include "time_table.h"
 
+extern int counter1;
+extern int num_teachers;
+extern int num_sub;
+extern int num_days;
+extern int num_std;
+extern int num_periods;
+extern int num_teach_lecs;
+
 int main()
 {
-    printf("Hello world!\n");
-
-// TODO (@aastha) - try to implement these points if ur free
-
-// Get user input from the *.txt files
-// Just need to make respective calls here
-// Make sure all the comments are removed from the file
-// And we need to still write special functions for lectures.txt and periods.txt
-
     char *teacher_file = "input_data/teachers.txt";
     char *sub_file = "input_data/subjects.txt";
     char *days_file = "input_data/days.txt";
@@ -27,32 +26,62 @@ int main()
 
     teacher_lec_t *tl_array;
 
-    int retval = 0;
-    int num_teachers = 0, num_sub = 0, num_days = 0, num_std = 0;
-    int num_periods = 0, num_teach_lecs = 0;
+    //int retval = 0;
+    counter1 = 0;
+    num_teachers = 0;
+    num_sub = 0;
+    num_days = 0;
+    num_std = 0;
+    num_periods = 0;
+    num_teach_lecs = 0;
 
-    retval = parse_file(teacher_file, &teacher_array, &num_teachers);
-    printf("ret_teacher = %d\n", retval);
-    retval = parse_file(std_file, &std_array, &num_std);
-    printf("ret_std = %d\n", retval);
-    retval = parse_file(days_file, &days_array, &num_days);
-    printf("ret_days = %d\n", retval);
-    retval = parse_file(sub_file, &sub_array, &num_sub);
-    printf("ret_sub = %d\n", retval);
-    retval = parse_periods_file(periods_file, &num_periods);
-    printf("ret_periods = %d\n", retval);
-
-    retval = parse_lec_file(lec_file, &tl_array, &num_teach_lecs);
-    printf("ret_tl = %d\n", retval);
-// Init the timte table structure based on the input values
-// Again just need to make a call, implementation is done
-
-    retval = init_time_table(num_teachers, num_days, num_periods);
-    if (retval && time_table) {
-        printf("Sucess!!\n");
-    } else {
-        printf("Failure!!\n");
+    if(!parse_file(teacher_file, &teacher_array, &num_teachers))
+    {
+        printf("Error in main(...), parse_file returned 0 while parsing %s\n", teacher_file);
+		return 0;
     }
+
+    if(!parse_file(std_file, &std_array, &num_std))
+    {
+        printf("Error in main(...), parse_file returned 0 while parsing %s\n", std_file);
+		return 0;
+    }
+
+    if(!parse_file(days_file, &days_array, &num_days))
+    {
+        printf("Error in main(...), parse_file returned 0 while parsing %s\n", days_file);
+		return 0;
+    }
+
+    if(!parse_file(sub_file, &sub_array, &num_sub))
+    {
+        printf("Error in main(...), parse_file returned 0 while parsing %s\n", sub_file);
+		return 0;
+    }
+
+    if(!parse_periods_file(periods_file, &num_periods))
+    {
+        printf("Error in main(...), parse_file returned 0 while parsing %s\n", periods_file);
+		return 0;
+    }
+
+    if(!parse_lec_file(lec_file, &tl_array, &num_teach_lecs))
+    {
+        printf("Error in main(...), parse_file returned 0 while parsing %s\n", lec_file);
+		return 0;
+    }
+
+    if(!init_time_table(num_teachers, num_days, num_periods))
+    {
+        printf("Error in main(...), init_time_table returned 0\n");
+		return 0;
+    }
+
+    printf("\nTotal values %d, %d, %d", num_teachers, num_periods, num_days);
+
+    allocate(tl_array, 0, 0, 0);
+
+    printf("\ncounter1 = %d", counter1);
 // Start allocation
 // Lets first try to implement the algo without any kind of validation
 // This will be just the backtracking algo then trying all cases
