@@ -133,20 +133,7 @@ void print_time_table() {
 }
 
 int allocate(teacher_lec_t* tl_array, int teacher, int day, int period) {
-    /*
-    // Here I do not know how to define lastTeacher, etc.
-    // They need to be global variables, defined when file input is read
-    // Can we use static for this
-    // I FORGOT C :|
-
-    */
-    //continue...
-
-    //print_time_table
     int i, j, k;
-
-    //scanf("%c",&tempchar);
-    //printf(", %c", tempchar);
 
     if(teacher >= num_teachers) {
         teacher = 0;
@@ -164,15 +151,29 @@ int allocate(teacher_lec_t* tl_array, int teacher, int day, int period) {
         return 1;
     }
 
-    //printf("\n%d, %d, %d", teacher, period, day);
-    //allocate(tl_array, teacher + 1, day, period);
-
     for(i = 0; i < tl_array[teacher].num_lectures; i++) {
         strcpy(time_table[teacher][day][period].std, tl_array[teacher].lectures[i].std);
         strcpy(time_table[teacher][day][period].sub, tl_array[teacher].lectures[i].sub);
+        if(!validateStandardConflicts(teacher, day, period))
+            continue;
         allocate(tl_array, teacher + 1, day, period);
     }
 
+    return 1;
+}
+
+// This function validates if the same standar appears twice
+// on the same day and during the same period
+int validateStandardConflicts(int teacher, int day, int period)
+{
+    int i;
+    for(i = 0; i < teacher; i++)
+    {
+        if(!strcmp(time_table[i][day][period].std, time_table[teacher][day][period].std))
+        {
+            return 0;
+        }
+    }
 
     return 1;
 }

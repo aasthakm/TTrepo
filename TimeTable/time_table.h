@@ -36,4 +36,6 @@ extern void delete_time_table(lecture_t*** time_table, int num_teachers,
                               int num_days, int num_periods);
 extern int allocate(teacher_lec_t* tl_array, int teacher, int day, int period);
 extern void print_time_table();
+extern int validateStandardConflicts(int teacher, int day, int period);
+
 #endif //TIME_TABLE_H
