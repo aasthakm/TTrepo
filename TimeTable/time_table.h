@@ -3,13 +3,12 @@
 
 #define MAX_LECS_PER_TEACHER 30
 
-int counter1;
-int num_teachers;
-int num_sub;
-int num_days;
-int num_std;
-int num_periods;
-int num_teach_lecs;
+#include "global.h"
+
+extern char **teacher_array;
+extern char **sub_array;
+extern char **days_array;
+extern char **std_array;
 
 typedef char subject_t;
 typedef char standard_t;

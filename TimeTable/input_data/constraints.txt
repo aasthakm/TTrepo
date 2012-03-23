@@ -1,0 +1,13 @@
+constraints 1
+
+day 0
+period 0
+teacher 0
+standard 0
+subject 0
+
+day 0
+period 0
+teacher 1
+standard 1
+subject 1

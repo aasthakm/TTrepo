@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "file_parser.h"
 #include "time_table.h"
+#include "global.h"
 
 extern int counter1;
 extern int num_teachers;
@@ -11,6 +12,11 @@ extern int num_std;
 extern int num_periods;
 extern int num_teach_lecs;
 
+extern char **teacher_array;
+extern char **sub_array;
+extern char **days_array;
+extern char **std_array;
+
 int main()
 {
     char *teacher_file = "input_data/teachers.txt";
@@ -18,11 +24,13 @@ int main()
     char *days_file = "input_data/days.txt";
     char *std_file = "input_data/standards.txt";
     char *periods_file = "input_data/periods.txt";
-    char *lec_file = "input_data/lectures.txt";
-    char **teacher_array = NULL;
-    char **sub_array = NULL;
-    char **days_array = NULL;
-    char **std_array = NULL;
+    char *lec_file = "input_data/lectures1.txt";
+    char *constraint_file = "input_data/constraints.txt";
+
+    teacher_array = NULL;
+    sub_array = NULL;
+    days_array = NULL;
+    std_array = NULL;
 
     teacher_lec_t *tl_array;
 
@@ -65,11 +73,13 @@ int main()
 		return 0;
     }
 
-    if(!parse_lec_file(lec_file, &tl_array, &num_teach_lecs))
+    if(!parse_lec_file1(lec_file, &tl_array, &num_teach_lecs))
     {
         printf("Error in main(...), parse_file returned 0 while parsing %s\n", lec_file);
 		return 0;
     }
+
+    print_tl_array(tl_array, num_teach_lecs);
 
     if(!init_time_table(num_teachers, num_days, num_periods))
     {
@@ -77,16 +87,15 @@ int main()
 		return 0;
     }
 
+    if(!parse_constraints(constraint_file))
+    {
+        printf("Error in main(...), parse_constraints returned 0 while parsing %s\n", constraint_file);
+		return 0;
+    }
+
     printf("\nTotal values %d, %d, %d", num_teachers, num_periods, num_days);
-
     allocate(tl_array, 0, 0, 0);
-
     printf("\ncounter1 = %d", counter1);
-// Start allocation
-// Lets first try to implement the algo without any kind of validation
-// This will be just the backtracking algo then trying all cases
-// We can try running it on small test cases
-// Once above feature is worknig well, we can introduce validations
 
     return 0;
 }

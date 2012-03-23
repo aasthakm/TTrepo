@@ -83,7 +83,157 @@ int parse_periods_file(char *file_name, int *num_periods) {
 	return 1;
 }
 
-int parse_lec_file(char *file_name, teacher_lec_t **tl_array,
+int parse_lec_file1(char *file_name, teacher_lec_t **tl_array,
+                   int *num_teach_lec) {
+    FILE *fp;
+    int i, j;
+    char temp_word_buffer[100];
+    char token[100];
+    int temp_num_lec, temp_word_buffer_length;
+    teacher_lec_t *tla;
+    int teachers_count = 0;
+    int teacher_name_length = 0;
+    int lectures_count = 0;
+    int teacher_id = 0;
+    int standard_id = 0;
+    int subject_id = 0;
+
+    if (file_name == NULL) {
+		printf("Error in parse_lec_file(...), fileName NULL\n");
+		return 0;
+	}
+
+	fp = fopen(file_name, "r");
+	if (fp == NULL) {
+		printf("Error in parse_lec_file(...), cannot open file %s\n", file_name);
+		return 0;
+	}
+
+	if(EOF == fscanf(fp, "%s", token)) {
+        printf("Error in parse_lec_file(...), empty file %s\n", file_name);
+        fclose(fp);
+    	return 0;
+	}
+
+	if(strcmp(token, "teachers") != 0) {
+        printf("Error in parse_lec_file(...), file %s should start with 'teachers'\n", file_name);
+        fclose(fp);
+    	return 0;
+	}
+
+	if(EOF == fscanf(fp, "%d", &teachers_count)) {
+        printf("Error in parse_lec_file(...), EOF reached after 'teachers' in %s\n", file_name);
+        fclose(fp);
+    	return 0;
+	}
+
+	if(teachers_count <= 0) {
+        printf("Error in parse_lec_file(...), 'teachers' should be followed by a positive integer in %s\n", file_name);
+        fclose(fp);
+    	return 0;
+	}
+
+	*tl_array = (teacher_lec_t*)malloc(sizeof(teacher_lec_t) * teachers_count);
+	tla = *tl_array;
+	if (!*tl_array) {
+        printf("Error in parse_lec_file(...), insufficient memory for tl_array\n");
+        fclose(fp);
+        return 0;
+	}
+
+	for (i = 0; i < teachers_count; i++) {
+        if(EOF == fscanf(fp, "%s", token)) {
+            printf("Error in parse_lec_file(...), empty file %s\n", file_name);
+            fclose(fp);
+            return 0;
+        }
+
+        if(strcmp(token, "teacher") != 0) {
+            printf("Error in parse_lec_file(...), expected keyword 'teacher' in %s\n", file_name);
+            fclose(fp);
+            return 0;
+        }
+
+        if(EOF == fscanf(fp, "%d", &teacher_id)) {
+            printf("Error in parse_lec_file(...), EOF reached after 'teachers' in %s\n", file_name);
+            fclose(fp);
+            return 0;
+        }
+
+        teacher_name_length = strlen(teacher_array[teacher_id]);
+
+        tla[i].teacher = (char*)malloc(teacher_name_length * sizeof(char));
+        if (!tla[i].teacher) {
+            printf("Error in parse_lec_file(...), insufficient memory for tl_array.teacher\n");
+            delete_tl_array(tl_array, i+1, MAX_LECS_PER_TEACHER);
+            fclose(fp);
+            return 0;
+        }
+
+        strcpy(tla[i].teacher, teacher_array[teacher_id]);
+
+        if(EOF == fscanf(fp, "%s", token)) {
+            printf("Error in parse_lec_file(...), empty file %s\n", file_name);
+            fclose(fp);
+            return 0;
+        }
+
+        if(strcmp(token, "lectures") != 0) {
+            printf("Error in parse_lec_file(...), expected keyword 'teacher' in %s\n", file_name);
+            fclose(fp);
+            return 0;
+        }
+
+        if(EOF == fscanf(fp, "%d", &lectures_count)) {
+            printf("Error in parse_lec_file(...), EOF reached after 'teachers' in %s\n", file_name);
+            fclose(fp);
+            return 0;
+        }
+
+        if(lectures_count <= 0) {
+            printf("Error in parse_lec_file(...), 'teachers' should be followed by a positive integer in %s\n", file_name);
+            fclose(fp);
+            return 0;
+        }
+
+        for (j = 0; j < lectures_count; j++) {
+            if(EOF == fscanf(fp, "%s %d", token, &standard_id)) {
+                printf("Error in parse_lec_file(...), empty file %s\n", file_name);
+                fclose(fp);
+                return 0;
+            }
+
+            if(strcmp(token, "standard") != 0) {
+                printf("Error in parse_lec_file(...), expected keyword 'teacher' in %s\n", file_name);
+                fclose(fp);
+                return 0;
+            }
+
+            if(EOF == fscanf(fp, "%s %d", token, &subject_id)) {
+                printf("Error in parse_lec_file(...), empty file %s\n", file_name);
+                fclose(fp);
+                return 0;
+            }
+
+            if(strcmp(token, "subject") != 0) {
+                printf("Error in parse_lec_file(...), expected keyword 'teacher' in %s\n", file_name);
+                fclose(fp);
+                return 0;
+            }
+
+            strcpy(tla[i].lectures[j].std, std_array[standard_id]);
+            strcpy(tla[i].lectures[j].sub, sub_array[subject_id]);
+        }
+
+        tla[i].num_lectures = lectures_count;
+	}
+
+    *num_teach_lec = teachers_count;
+	fclose(fp);
+	return 1;
+}
+
+int parse_lec_file0(char *file_name, teacher_lec_t **tl_array,
                    int *num_teach_lec) {
     FILE *fp;
     int i, j;
@@ -202,4 +352,57 @@ void delete_tl_array(teacher_lec_t **tl_array, int t_size, int l_size) {
             free((void *)tl_array[i]);
         }
     }
+}
+
+int parse_constraints(char* file_name) {
+	FILE *fp;
+	char temp_word_buffer[100];
+	int temp_word_buffer_length;
+	int temp_size = 0;
+	int constraints_count = 0;
+	char token[100];
+	int i, j;
+	int day_id, period_id, teacher_id, standard_id, subject_id;
+
+	if (file_name == NULL) {
+		printf("Error in parse_file(...), fileName NULL\n");
+		return 0;
+	}
+
+	fp = fopen(file_name, "r");
+	if (fp == NULL) {
+		printf("Error in parse_file(...), cannot open file %s\n", file_name);
+		return 0;
+	}
+
+	if(EOF == fscanf(fp, "%s", token)) {
+        printf("Error in parse_lec_file(...), empty file %s\n", file_name);
+        fclose(fp);
+    	return 0;
+	}
+
+	if(strcmp(token, "constraints") != 0) {
+        printf("Error in parse_lec_file(...), file %s should start with 'teachers'\n", file_name);
+        fclose(fp);
+    	return 0;
+	}
+
+	if(EOF == fscanf(fp, "%d", &constraints_count)) {
+        printf("Error in parse_lec_file(...), EOF reached after 'teachers' in %s\n", file_name);
+        fclose(fp);
+    	return 0;
+	}
+
+	for(i = 0; i < constraints_count; i++) {
+        fscanf(fp, "%s %d", token, &day_id);
+        fscanf(fp, "%s %d", token, &period_id);
+        fscanf(fp, "%s %d", token, &teacher_id);
+        fscanf(fp, "%s %d", token, &standard_id);
+        fscanf(fp, "%s %d", token, &subject_id);
+        strcpy(time_table[teacher_id][day_id][period_id].std, std_array[standard_id]);
+        strcpy(time_table[teacher_id][day_id][period_id].sub, sub_array[subject_id]);
+	}
+
+	fclose(fp);
+	return 1;
 }

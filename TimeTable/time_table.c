@@ -151,12 +151,20 @@ int allocate(teacher_lec_t* tl_array, int teacher, int day, int period) {
         return 1;
     }
 
-    for(i = 0; i < tl_array[teacher].num_lectures; i++) {
-        strcpy(time_table[teacher][day][period].std, tl_array[teacher].lectures[i].std);
-        strcpy(time_table[teacher][day][period].sub, tl_array[teacher].lectures[i].sub);
-        if(!validateStandardConflicts(teacher, day, period))
-            continue;
+    if(strcmp(time_table[teacher][day][period].std, "") != 0 &&
+       strcmp(time_table[teacher][day][period].sub, "") != 0) {
         allocate(tl_array, teacher + 1, day, period);
+    }
+    else {
+        for(i = 0; i < tl_array[teacher].num_lectures; i++) {
+            strcpy(time_table[teacher][day][period].std, tl_array[teacher].lectures[i].std);
+            strcpy(time_table[teacher][day][period].sub, tl_array[teacher].lectures[i].sub);
+            if(!validateStandardConflicts(teacher, day, period))
+                continue;
+            allocate(tl_array, teacher + 1, day, period);
+            strcpy(time_table[teacher][day][period].std, "");
+            strcpy(time_table[teacher][day][period].sub, "");
+        }
     }
 
     return 1;

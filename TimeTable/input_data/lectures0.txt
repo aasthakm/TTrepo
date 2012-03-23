@@ -1,0 +1,12 @@
+2
+priya 4
+1a MA
+1b MA
+1c MA
+1d MA
+parul 4
+1a SCI
+1b SCI
+1c SCI
+1d SCI
+
