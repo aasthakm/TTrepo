@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="file_parser.c" open="1" top="1" tabpos="1">
-		<Cursor position="4494" topLine="121" />
+	<File name="file_parser.c" open="1" top="0" tabpos="5">
+		<Cursor position="11544" topLine="382" />
 	</File>
-	<File name="file_parser.h" open="1" top="0" tabpos="2">
-		<Cursor position="94" topLine="0" />
+	<File name="file_parser.h" open="1" top="0" tabpos="4">
+		<Cursor position="886" topLine="0" />
+	</File>
+	<File name="global.h" open="0" top="0" tabpos="0">
+		<Cursor position="218" topLine="0" />
+	</File>
+	<File name="input_data\constraints.txt" open="1" top="0" tabpos="6">
+		<Cursor position="119" topLine="0" />
+	</File>
+	<File name="input_data\days.txt" open="0" top="0" tabpos="0">
+		<Cursor position="11" topLine="0" />
+	</File>
+	<File name="input_data\lectures.txt" open="0" top="0" tabpos="6">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="input_data\lectures0.txt" open="0" top="0" tabpos="0">
+		<Cursor position="79" topLine="0" />
+	</File>
+	<File name="input_data\lectures1.txt" open="1" top="0" tabpos="1">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="input_data\periods.txt" open="0" top="0" tabpos="0">
+		<Cursor position="1" topLine="0" />
+	</File>
+	<File name="input_data\standards.txt" open="0" top="0" tabpos="0">
+		<Cursor position="17" topLine="0" />
+	</File>
+	<File name="input_data\subjects.txt" open="0" top="0" tabpos="0">
+		<Cursor position="1" topLine="0" />
+	</File>
+	<File name="input_data\teachers.txt" open="0" top="0" tabpos="0">
+		<Cursor position="15" topLine="0" />
 	</File>
 	<File name="main.c" open="1" top="0" tabpos="3">
-		<Cursor position="265" topLine="9" />
+		<Cursor position="426" topLine="9" />
 	</File>
-	<File name="time_table.c" open="1" top="0" tabpos="4">
-		<Cursor position="25" topLine="0" />
+	<File name="time_table.c" open="1" top="1" tabpos="2">
+		<Cursor position="4332" topLine="145" />
 	</File>
-	<File name="time_table.h" open="1" top="0" tabpos="5">
-		<Cursor position="842" topLine="2" />
+	<File name="time_table.h" open="0" top="0" tabpos="5">
+		<Cursor position="211" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

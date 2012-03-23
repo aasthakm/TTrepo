@@ -35,6 +35,16 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="file_parser.h" />
+		<Unit filename="global.h" />
+		<Unit filename="input_data\constraints.txt" />
+		<Unit filename="input_data\days.txt" />
+		<Unit filename="input_data\lectures.txt" />
+		<Unit filename="input_data\lectures0.txt" />
+		<Unit filename="input_data\lectures1.txt" />
+		<Unit filename="input_data\periods.txt" />
+		<Unit filename="input_data\standards.txt" />
+		<Unit filename="input_data\subjects.txt" />
+		<Unit filename="input_data\teachers.txt" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
